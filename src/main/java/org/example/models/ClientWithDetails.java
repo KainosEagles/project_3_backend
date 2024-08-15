@@ -6,13 +6,13 @@ public class ClientWithDetails {
     private final String salesEmployee;
     private final String projects;
 
-    public ClientWithDetails(int id,
-                             String name,
-                             String sales_employee,
-                             String projects) {
+    public ClientWithDetails(final int id,
+                             final String name,
+                             final String salesEmployee,
+                             final String projects) {
         this.id = id;
         this.name = name;
-        this.salesEmployee = sales_employee;
+        this.salesEmployee = salesEmployee;
         this.projects = projects;
     }
 
