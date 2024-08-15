@@ -4,6 +4,7 @@ import org.example.daos.ProjectDao;
 import org.example.models.Employee;
 import org.example.models.Project;
 import org.example.models.ProjectRequest;
+import org.example.models.ProjectResponse;
 import org.example.models.ProjectStatusRequest;
 
 import java.sql.SQLException;
@@ -59,5 +60,13 @@ public class ProjectService {
 //        }
         projectDao.addEmplyee(employeeList, projectID);
 
+    }
+
+    public List<ProjectResponse> getAllProjects() throws SQLException {
+        return projectDao.getAllProjects();
+    }
+
+    public ProjectResponse getProject(final int id) throws SQLException {
+        return projectDao.getProject(id);
     }
 }
