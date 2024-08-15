@@ -67,4 +67,8 @@ public class ProjectService {
     public List<ProjectResponse> getAllProjects() throws SQLException {
         return projectDao.getProjects();
     }
+
+    public ProjectResponse getProject(final int id) throws SQLException {
+        return projectDao.getProject(id);
+    }
 }

@@ -38,6 +38,18 @@ public class ProjectController {
         }
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProject(final @PathParam("id") int id) {
+        try {
+            return Response.ok()
+                    .entity(projectService.getProject(id)).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        }
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response createProject(final ProjectRequest projectRequest) {

@@ -144,4 +144,25 @@ public class ProjectDao {
         }
         return projects;
     }
+
+    public ProjectResponse getProject(final int id) throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query = "SELECT * FROM Project WHERE id = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                return new ProjectResponse(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("value"),
+                        ProjectStatus.valueOf(resultSet.getString("status"))
+                );
+            }
+        }
+        return null;
+    }
 }
