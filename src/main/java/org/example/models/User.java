@@ -3,7 +3,7 @@ package org.example.models;
 public class User {
     final String username;
     final String password;
-    int roleId;
+    final int roleId;
 
     public User(final String username,
                 final String password,
@@ -23,10 +23,6 @@ public class User {
 
     public int getRoleId() {
         return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
     }
 }
 

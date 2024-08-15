@@ -11,7 +11,7 @@ public class UserRole {
     public static final String TEAMLEAD = "teamlead";
     int id;
 
-    private static final Map<Integer, String> RolesMap = Map.of(
+    private static final Map<Integer, String> ROLES_MAP = Map.of(
             1, HR,
             2, MANAGEMENT,
             3, SALES,
@@ -32,7 +32,7 @@ public class UserRole {
     }
 
     public String getRoleName() {
-        return RolesMap.get(getId());
+        return ROLES_MAP.get(getId());
     }
 
 }

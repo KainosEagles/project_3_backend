@@ -15,7 +15,8 @@ public class RoleAuthorizer implements Authorizer<JwtToken> {
 
     @Override
     public boolean authorize(final JwtToken principal, final String role,
-                             @Nullable ContainerRequestContext requestContext) {
+                             @Nullable final
+                             ContainerRequestContext requestContext) {
         return principal.getUserRole().getRoleName().equals(role);
     }
 }
