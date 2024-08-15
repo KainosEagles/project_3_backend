@@ -1,23 +1,24 @@
 package org.example;
 
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
-import org.example.controllers.EmployeeController;
-import org.example.daos.EmployeeDao;
-import org.example.controllers.ProjectController;
-import org.example.daos.ProjectDao;
-import org.example.services.EmployeeService;
-import org.example.services.ProjectService;
-import org.example.controllers.ClientController;
-import org.example.controllers.TestController;
-import org.example.daos.ClientDao;
-import org.example.daos.TestDao;
-import org.example.services.ClientService;
-import org.example.services.TestService;
+import io.jsonwebtoken.Jwts;
+import org.example.auth.JwtAuthenticator;
+import org.example.auth.RoleAuthorizer;
+import org.example.controllers.*;
+import org.example.daos.*;
+import org.example.models.JwtToken;
+import org.example.services.*;
 import org.example.validators.EmployeeValidator;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+
+import java.security.Key;
 
 public class TestApplication extends Application<TestConfiguration> {
     public static void main(final String[] args) throws Exception {
@@ -40,6 +41,19 @@ public class TestApplication extends Application<TestConfiguration> {
     @Override
     public void run(final TestConfiguration configuration,
                     final Environment environment) {
+
+        Key jwtkey = Jwts.SIG.HS256.key().build();
+
+        environment.jersey().register(new AuthDynamicFeature(
+                new OAuthCredentialAuthFilter.Builder<JwtToken>()
+                        .setAuthenticator(new JwtAuthenticator(jwtkey))
+                        .setAuthorizer(new RoleAuthorizer())
+                        .setPrefix("Bearer")
+                        .buildAuthFilter()));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(JwtToken.class));
+
+
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
         environment.jersey()
@@ -53,6 +67,9 @@ public class TestApplication extends Application<TestConfiguration> {
         environment.jersey()
                 .register(new ClientController(new ClientService(
                         new ClientDao())));
+
+        environment.jersey().register(new AuthController(new AuthService(new AuthDao(), jwtkey)));
+
     }
 
 }
