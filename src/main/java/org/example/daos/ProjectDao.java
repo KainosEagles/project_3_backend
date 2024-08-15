@@ -103,13 +103,11 @@ public class ProjectDao {
         st.executeUpdate();
     }
 
-    public void addEmplyee(final List<Employee> employeeList,
+    public void addEmplyee(final Employee employee,
                            final int projectID) throws SQLException {
         Connection c = DatabaseConnector.getConnection();
 
-        for (Employee employee : employeeList) {
-            String updateEmployeeList =
-                    "INSERT INTO Project_Employee "
+            String updateEmployeeList = "INSERT INTO Project_Employee "
                     + "(project_id, employee_id, start_date)"
                     + " VALUES (?, ?, ?)";
 
@@ -120,7 +118,6 @@ public class ProjectDao {
             st.setDate(ID_3, Date.valueOf(LocalDate.now()));
 
             st.executeUpdate();
-        }
 
     }
 

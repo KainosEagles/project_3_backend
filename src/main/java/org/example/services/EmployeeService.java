@@ -3,6 +3,7 @@ package org.example.services;
 import org.example.daos.EmployeeDao;
 import org.example.exceptions.FailedToCreateException;
 import org.example.exceptions.InvalidException;
+import org.example.models.Employee;
 import org.example.models.EmployeeRequest;
 import org.example.models.EmployeeResponse;
 import org.example.models.SalesEmployeeRequest;
@@ -34,7 +35,7 @@ public class EmployeeService {
         return employeeDao.createEmployee(employeeRequest);
     }
 
-    public List<EmployeeResponse> getAllEmployees() throws SQLException {
+    public List<Employee> getAllEmployees() throws SQLException {
         return  employeeDao.getAllEmployees();
     }
 

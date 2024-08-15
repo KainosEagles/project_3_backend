@@ -2,6 +2,7 @@ package org.example.daos;
 
 import org.example.exceptions.Entity;
 import org.example.exceptions.FailedToCreateException;
+import org.example.models.Employee;
 import org.example.models.EmployeeRequest;
 import org.example.models.EmployeeResponse;
 import org.example.models.SalesEmployeeRequest;
@@ -79,8 +80,8 @@ public class EmployeeDao {
         return id;
     }
 
-    public List<EmployeeResponse> getAllEmployees() throws SQLException {
-        List<EmployeeResponse> employees = new ArrayList<>();
+    public List<Employee> getAllEmployees() throws SQLException {
+        List<Employee> employees = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
@@ -90,7 +91,8 @@ public class EmployeeDao {
             );
 
             while (resultSet.next()) {
-                EmployeeResponse employeeResponse = new EmployeeResponse(
+                Employee employeeResponse = new Employee(
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getDouble("salary"),
                         resultSet.getString("bank_account_number"),

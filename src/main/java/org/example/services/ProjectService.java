@@ -52,13 +52,13 @@ public class ProjectService {
     }
 
     public void addEmployee(final int projectID,
-                            final List<Employee> employeeList)
+                            final Employee employee)
             throws SQLException {
         Project projectToUpdate = projectDao.getProjectByID(projectID);
 //        if (projectToUpdate == null) {
 //            throw new DoesNotExistException(Entity.PROJECT);
 //        }
-        projectDao.addEmplyee(employeeList, projectID);
+        projectDao.addEmplyee(employee, projectID);
 
     }
 

@@ -101,9 +101,9 @@ public class ProjectController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addEmployee(
             final @PathParam("projectID") int projectID,
-            final List<Employee> employeeList) {
+            final Employee employee) {
         try {
-            projectService.addEmployee(projectID, employeeList);
+            projectService.addEmployee(projectID, employee);
             return Response.noContent().build();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
