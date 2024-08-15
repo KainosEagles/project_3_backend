@@ -37,14 +37,16 @@ public class ClientDao {
         return clients;
     }
 
-    public List<ClientWithDetails> getAllClientsWithDetails() throws SQLException {
+    public List<ClientWithDetails> getAllClientsWithDetails()
+            throws SQLException {
         List<ClientWithDetails> clientsWithDetails = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
                     "SELECT c.id, c.name, e.name AS `sales_employee`, "
-                            + "GROUP_CONCAT(p.name SEPARATOR ', ') AS `projects`\n"
+                            + "GROUP_CONCAT(p.name SEPARATOR ', ') "
+                            + "AS `projects`\n"
                             + "FROM Client c\n"
                             + "INNER JOIN Employee e ON c.acquired_by=e.id\n"
                             + "LEFT JOIN Project p ON c.id=p.client_id\n"

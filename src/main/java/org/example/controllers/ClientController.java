@@ -34,7 +34,8 @@ public class ClientController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClientsWithDetails() {
         try {
-            return Response.ok().entity(clientService.getAllClientsWithDetails()).build();
+            return Response.ok().entity(clientService.
+                    getAllClientsWithDetails()).build();
         } catch (SQLException e) {
             return Response.serverError().build();
         }
@@ -45,7 +46,8 @@ public class ClientController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response topClient() {
         try {
-            return Response.ok().entity(clientService.getTopClient()).build();
+            return Response.ok().entity(clientService.
+                    getTopClient()).build();
         } catch (SQLException e) {
             return Response.serverError().build();
         }

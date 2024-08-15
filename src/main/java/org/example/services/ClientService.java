@@ -23,7 +23,8 @@ public class ClientService {
                 );
     }
 
-    public List<ClientWithDetails> getAllClientsWithDetails() throws SQLException {
+    public List<ClientWithDetails> getAllClientsWithDetails()
+            throws SQLException {
         return clientDao.getAllClientsWithDetails();
     }
 
