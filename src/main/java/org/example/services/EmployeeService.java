@@ -5,7 +5,6 @@ import org.example.exceptions.FailedToCreateException;
 import org.example.exceptions.InvalidException;
 import org.example.models.Employee;
 import org.example.models.EmployeeRequest;
-import org.example.models.EmployeeResponse;
 import org.example.models.SalesEmployeeRequest;
 import org.example.validators.EmployeeValidator;
 

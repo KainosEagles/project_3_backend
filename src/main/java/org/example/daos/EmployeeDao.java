@@ -4,7 +4,6 @@ import org.example.exceptions.Entity;
 import org.example.exceptions.FailedToCreateException;
 import org.example.models.Employee;
 import org.example.models.EmployeeRequest;
-import org.example.models.EmployeeResponse;
 import org.example.models.SalesEmployeeRequest;
 import org.example.models.SalesEmployeeResponse;
 
