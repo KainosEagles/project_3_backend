@@ -58,6 +58,7 @@ public class ClientDao {
                         resultSet.getString("projects")
                 );
 
+
                 clientsWithDetails.add(clientWithDetails);
             }
         }
