@@ -3,6 +3,7 @@ package org.example.daos;
 import org.example.models.Employee;
 import org.example.models.Project;
 import org.example.models.ProjectRequest;
+import org.example.models.ProjectResponse;
 import org.example.models.ProjectStatus;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDao {
@@ -120,5 +122,26 @@ public class ProjectDao {
             st.executeUpdate();
         }
 
+    }
+
+    public List<ProjectResponse> getProjects() throws SQLException {
+        List<ProjectResponse> projects = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM Project;");
+            while (resultSet.next()) {
+                ProjectResponse project = new ProjectResponse(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("value"),
+                        ProjectStatus.valueOf(resultSet.getString("status"))
+                );
+
+                projects.add(project);
+            }
+        }
+        return projects;
     }
 }

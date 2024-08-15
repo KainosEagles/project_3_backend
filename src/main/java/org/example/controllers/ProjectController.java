@@ -7,6 +7,7 @@ import org.example.models.ProjectStatusRequest;
 import org.example.services.ProjectService;
 
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -24,6 +25,17 @@ public class ProjectController {
 
     public ProjectController(final ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProjects() {
+        try {
+            return Response.ok()
+                    .entity(projectService.getAllProjects()).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        }
     }
 
     @POST

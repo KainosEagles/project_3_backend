@@ -1,9 +1,12 @@
 package org.example.services;
 
 import org.example.daos.ProjectDao;
+import org.example.mappers.ClientMapper;
+import org.example.models.ClientResponse;
 import org.example.models.Employee;
 import org.example.models.Project;
 import org.example.models.ProjectRequest;
+import org.example.models.ProjectResponse;
 import org.example.models.ProjectStatusRequest;
 
 import java.sql.SQLException;
@@ -59,5 +62,9 @@ public class ProjectService {
 //        }
         projectDao.addEmplyee(employeeList, projectID);
 
+    }
+
+    public List<ProjectResponse> getAllProjects() throws SQLException {
+        return projectDao.getProjects();
     }
 }
