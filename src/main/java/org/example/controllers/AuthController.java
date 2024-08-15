@@ -17,6 +17,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,34 +38,36 @@ public class AuthController {
 
     AuthService authService;
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    public AuthController(AuthService authService) {
+    public AuthController(final AuthService authService) {
         this.authService = authService;
 
-        logger.info("Authcontroller has been initialized");
+        LOGGER.info("Authcontroller has been initialized");
 
     }
 
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(LoginRequest loginRequest){
-        logger.info("Login request received");
+    public Response login(final LoginRequest loginRequest) {
+        LOGGER.info("Login request received");
         try {
-            return Response.ok().entity(authService.login(loginRequest)).build();
+            return Response.ok().entity(authService
+                    .login(loginRequest)).build();
         } catch (SQLException e) {
             return Response.serverError().build();
         } catch (InvalidException e) {
-            logger.error("Login request failed ", e.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOGGER.error("Login request failed ", e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(RegisterRequest registerRequest)  {
+    public Response register(final RegisterRequest registerRequest) {
         try {
             System.out.println(registerRequest);
             authService.register(registerRequest);
@@ -73,7 +76,8 @@ public class AuthController {
             return Response.serverError().build();
         } catch (InvalidException e) {
             System.out.println(e.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage()).build();
         } catch (FailedToCreateException e) {
             throw new RuntimeException(e);
         }

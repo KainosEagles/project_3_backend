@@ -2,9 +2,7 @@ package org.example.auth;
 
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import org.eclipse.jetty.server.Authentication;
 import org.example.models.JwtToken;
 import org.example.models.UserRole;
 
@@ -14,12 +12,13 @@ import java.util.Optional;
 public class JwtAuthenticator implements Authenticator<String, JwtToken> {
     Key key;
 
-    public JwtAuthenticator(Key key) {
+    public JwtAuthenticator(final Key key) {
         this.key = key;
     }
 
     @Override
-    public Optional<JwtToken> authenticate(String token) throws AuthenticationException {
+    public Optional<JwtToken> authenticate(final String token)
+            throws AuthenticationException {
         try {
             Integer roleId = Jwts.parser()
                     .setSigningKey(key)

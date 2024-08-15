@@ -15,29 +15,31 @@ import java.sql.SQLException;
 
 public class AuthService {
 
+    private static final int MAGIC_NUM_288 = 28800000;
     private final AuthDao authDao;
     private final Key key;
 
-    public AuthService(AuthDao authDao, Key key) {
+    public AuthService(final AuthDao authDao, final Key key) {
         this.authDao = authDao;
         this.key = key;
     }
 
-    public String login(LoginRequest loginRequest)
+    public String login(final LoginRequest loginRequest)
             throws SQLException, InvalidException {
         User user = authDao.getUser(loginRequest);
 
-        if(user == null ){
+        if (user == null) {
             throw new InvalidException(Entity.USER, "Invalid credentials");
         }
 
         return generateJwtToken(user);
     }
 
-    private String generateJwtToken(User user) {
+    private String generateJwtToken(final User user) {
         return Jwts.builder()
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 28800000))
+                .expiration(new Date(System.currentTimeMillis()
+                        + MAGIC_NUM_288))
                 .claim("Role", user.getRoleId())
                 .subject(user.getUsername())
                 .issuer("DropwizardDemo")
@@ -45,7 +47,7 @@ public class AuthService {
                 .compact();
     }
 
-    public void register(RegisterRequest registerRequest)
+    public void register(final RegisterRequest registerRequest)
             throws SQLException, InvalidException, FailedToCreateException {
 
 //        userValidator.validateUser(registerRequest);

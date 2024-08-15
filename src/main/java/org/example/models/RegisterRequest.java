@@ -3,8 +3,6 @@ package org.example.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Date;
-
 public class RegisterRequest {
 
     private String username;
@@ -12,8 +10,8 @@ public class RegisterRequest {
 
     @JsonCreator
     public RegisterRequest(
-            @JsonProperty("username") String username,
-            @JsonProperty("password") String password){
+            @JsonProperty("username") final String username,
+            @JsonProperty("password") final String password) {
         this.username = username;
         this.password = password;
     }
@@ -22,7 +20,7 @@ public class RegisterRequest {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -30,7 +28,7 @@ public class RegisterRequest {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 

@@ -1,7 +1,5 @@
 package org.example.models;
 
-import org.eclipse.jetty.server.Authentication;
-
 import java.util.Map;
 
 public class UserRole {
@@ -13,7 +11,7 @@ public class UserRole {
     public static final String TEAMLEAD = "teamlead";
     int id;
 
-    private static final Map<Integer, String> rolesMap = Map.of(
+    private static final Map<Integer, String> RolesMap = Map.of(
             1, HR,
             2, MANAGEMENT,
             3, SALES,
@@ -21,7 +19,7 @@ public class UserRole {
             5, TEAMLEAD
     );
 
-    public UserRole(int id) {
+    public UserRole(final int id) {
         this.id = id;
     }
 
@@ -29,12 +27,12 @@ public class UserRole {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
     public String getRoleName() {
-        return rolesMap.get(getId());
+        return RolesMap.get(getId());
     }
 
 }
