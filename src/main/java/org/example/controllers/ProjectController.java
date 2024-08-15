@@ -16,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
-import java.util.List;
 
 @Api("Project")
 @Path("/api/projects")
@@ -101,9 +100,9 @@ public class ProjectController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addEmployee(
             final @PathParam("projectID") int projectID,
-            final List<Employee> employeeList) {
+            final Employee employee) {
         try {
-            projectService.addEmployee(projectID, employeeList);
+            projectService.addEmployee(projectID, employee);
             return Response.noContent().build();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
