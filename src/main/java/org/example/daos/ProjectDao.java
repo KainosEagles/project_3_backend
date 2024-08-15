@@ -124,13 +124,13 @@ public class ProjectDao {
 
     }
 
-    public List<ProjectResponse> getProjects() throws SQLException {
+    public List<ProjectResponse> getAllProjects() throws SQLException {
         List<ProjectResponse> projects = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM Project;");
+                    "SELECT * FROM Project WHERE status <> \"COMPLETED\";");
             while (resultSet.next()) {
                 ProjectResponse project = new ProjectResponse(
                         resultSet.getInt("id"),
