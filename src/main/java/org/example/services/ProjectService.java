@@ -1,8 +1,6 @@
 package org.example.services;
 
 import org.example.daos.ProjectDao;
-import org.example.mappers.ClientMapper;
-import org.example.models.ClientResponse;
 import org.example.models.Employee;
 import org.example.models.Project;
 import org.example.models.ProjectRequest;
